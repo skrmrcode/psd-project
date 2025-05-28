@@ -4,6 +4,7 @@
 #include <string.h>
 #include <time.h>
 #include "menu.h"
+#include "activity.h"
 
 void showMenu() {
     printf("\n---  Planning and Monitoring System\n");
@@ -12,7 +13,7 @@ void showMenu() {
     printf("3. View activities\n");
     printf("4. Generate weekly report\n");
     printf("0. Close\n");
-    printf("Scelta: ");
+    printf("Choice: ");
 }
 
 void handleChoice(heap h, int choice) {
@@ -40,7 +41,7 @@ void handleChoice(heap h, int choice) {
             printf("Priority (1 = Low, 2 = Medium, 3 = High): ");
             scanf("%d", &p); getchar();
 
-            activity a = newact(descr, course, deadline, time, p);
+            activity a = newAct(descr, course, deadline, time, p);
             addAct(h, a);
 
             FILE *f = fopen("activities.txt", "a");
@@ -48,7 +49,7 @@ void handleChoice(heap h, int choice) {
                 fprintf(f, "%s|%s|%s|%d|%d\n", descr, course, deadline, time, p);
                 fclose(f);
             } else {
-                printf("Errore nell'apertura di activities.txt!\n");
+                printf("Error opening activities.txt!\n");
             }
             break;
         }
@@ -78,7 +79,7 @@ void handleChoice(heap h, int choice) {
             printf("\n--- Weekly Report ---\n");
             FILE *f = fopen("report.txt", "w");
             if (f == NULL) {
-                printf("Errore nella creazione del report!\n");
+                printf("Error occurred creating report!\n");
                 return;
             }
 
@@ -96,11 +97,11 @@ void handleChoice(heap h, int choice) {
                     fprintf(f, "[ONGOING] ");
                 }
                 printAct(a);
-                fprintf(f, "%s|%s|%s|%d ore\n", getDescr(a), getCourse(a), getDeadline(a), getWorkedHours(a));
+                fprintf(f, "%s|%s|%s|%d hours\n", getDescr(a), getCourse(a), getDeadline(a), getWorkedHours(a));
             }
 
             fclose(f);
-            printf("Report salvato in 'report.txt'\n");
+            printf("Report saved in 'report.txt'\n");
             break;
         }
 
@@ -118,7 +119,7 @@ void loadActivities(heap h) {
     int time, p;
 
     while (fscanf(f, " %255[^|]|%99[^|]|%10[^|]|%d|%d\n", descr, course, deadline, &time, &p) == 5) {
-        activity a = newact(descr, course, deadline, time, p);
+        activity a = newAct(descr, course, deadline, time, p);
         addAct(h, a);
     }
 

@@ -1,3 +1,6 @@
+#ifndef ACTIVITY_H
+#define ACTIVITY_H
+#include <time.h>
 typedef struct c_act *activity;
 
 typedef enum{
@@ -22,6 +25,12 @@ c_state getState(activity a);
 
 priority getP(activity a);
 
+char* getDescr(activity a);
+char* getCourse(activity a);
+int getWorkedHours(activity a);
+
 int isLate(activity a);
 
 char* getDeadline(activity a);
+time_t dataConvert(char* data_str);
+#endif

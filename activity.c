@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "activity.h"
+#include <time.h>
 
 struct c_act{
     char description[256];
@@ -44,6 +45,18 @@ char* getDeadline(activity a){
     return a->deadline;
 }
 
+char* getDescr(activity a){
+    return a->description;
+}
+
+char* getCourse(activity a){
+    return a->course;
+}
+
+int getWorkedHours(activity a){
+    return a->timeSpentAct;
+}
+
 c_state getState(activity a){
     return a->state;
 }
@@ -56,4 +69,27 @@ void printAct(activity a){
     char *states[] = {"Uncompleted", "Ongoing", "Completed"};
     char *prio[] = {"", "Low", "Medium", "High"};
     printf("Activity: %s | course: %s | Deadline: %s | priority: %s | State: %s\n", a->description, a->course, a->deadline, states[getState(a)], prio[getP(a)] );
+}
+
+time_t dataConvert(char* data_str){
+    int y, m, d;
+    sscanf(data_str, "%d-%d-%d", &y, &m, &d);
+
+    struct tm tm = {0};
+    tm.tm_year = y - 1900;
+    tm.tm_mon = m - 1;
+    tm.tm_mday = d;
+
+    return mktime(&tm);
+}
+
+int isLate(activity a){
+    
+    if (getState(a) == COMPLETED)
+        return 0;
+
+    time_t deadline = dataConvert(getDeadline(a));
+    time_t today = time(NULL);
+
+    return difftime(today, deadline) > 0;
 }

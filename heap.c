@@ -40,7 +40,7 @@ void heapifyDown(heap h, int pos){
 
     if (max != pos) {
         swap(&h->arr[pos], &h->arr[max]);
-        scendi(h, max);
+        heapifyDown(h, max);
     }
 }
 
