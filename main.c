@@ -4,16 +4,18 @@
 #include <time.h>
 #include "heap.h"
 #include "menu.h"
+#include "utils.h"
 
-int main(){
-    heap h = newHeap(100);
-    loadActivities(h);
+// Entry point of the program
+int main() {
+    heap h = newHeap(100);         // Create a new heap with capacity 100
+    loadActivitiesFromFile(h);     // Load previously saved activities from file
     int choice;
 
-    while(1){
-        showMenu();
+    while (1) {
+        menuLoop(h);               // Display the menu and handle user interactions
         scanf("%d", &choice);
-        getchar(); //"delete" the new line
-        handleChoice(h, choice);
-        }
+        getchar();                 // Clear the newline from input buffer
+        handleChoice(h, choice);   // Process user's menu selection
     }
+}

@@ -1,6 +1,15 @@
+#ifndef MENU_H
 #define MENU_H
 
 #include "heap.h"
+
+// Display the main menu options to the user
 void showMenu();
+
+// Handle the selected menu choice
 void handleChoice(heap h, int choice);
-void loadActivities(heap h);
+
+// Start the main menu loop
+void menuLoop(heap h);
+
+#endif

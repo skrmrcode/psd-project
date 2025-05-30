@@ -1,5 +1,6 @@
 {
     "files.associations": {
-        "activity.h": "c"
+        "activity.h": "c",
+        "heap.h": "c"
     }
 }
