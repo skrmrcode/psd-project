@@ -1,3 +1,0 @@
-Status       Description          Course          Deadline     Hours    Prio  
-------------------------------------------------------------------------------------------
-COMPLETED    maio                   maio              1111-11-11   12       Medium
