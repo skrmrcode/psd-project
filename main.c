@@ -2,19 +2,20 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+#include "heap.h"
+#include "menu.h"
+#include "utils.h"
 
-//display menu
-void showmenu(){
-    printf("\n---  Planning and Monitoring System\n");
-    printf("1. Add study activity\n");
-    printf("2. Upgrade progress\n");
-    printf("3. View activities\n");
-    printf("4. Generate weekly report\n");
-    printf("0. Close\n");
-    printf("Scelta: ");
-}
+// Entry point of the program
+int main() {
+    heap h = newHeap(100);         // Create a new heap with capacity 100
+    loadActivitiesFromFile(h);     // Load previously saved activities from file
+    int choice;
 
-int main(){
-    //switch
-    
+    while (1) {
+        menuLoop(h);               // Display the menu and handle user interactions
+        scanf("%d", &choice);
+        getchar();                 // Clear the newline from input buffer
+        handleChoice(h, choice);   // Process user's menu selection
+    }
 }
